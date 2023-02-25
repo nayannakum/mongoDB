@@ -6,6 +6,13 @@ public class BookDto {
 	private int id;
 	private String bookName;
 	private String authorName;
+	private String nickName;
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public int getId() {
 		return id;
 	}
@@ -26,6 +33,7 @@ public class BookDto {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", bookName=" + bookName + ", authorName=" + authorName + "]";
+		return "BookDto [id=" + id + ", bookName=" + bookName + ", authorName=" + authorName + ", nickName=" + nickName
+				+ "]";
 	}
 }

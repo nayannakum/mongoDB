@@ -2,12 +2,21 @@ package com.demo.springmongo.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Document(collection = "book")
 public class Book {
 
 	private int id;
 	private String bookName;
 	private String authorName;
+	private String nickName;
+	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public int getId() {
 		return id;
 	}
@@ -28,6 +37,7 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", bookName=" + bookName + ", authorName=" + authorName + "]";
+		return "Book [id=" + id + ", bookName=" + bookName + ", authorName=" + authorName + ", nickName=" + nickName
+				+ "]";
 	}
 }

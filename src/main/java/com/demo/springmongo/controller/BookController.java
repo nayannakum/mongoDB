@@ -46,4 +46,5 @@ public class BookController {
 	public ResponseEntity<BookDto> updateBook(@RequestBody BookDto bookDto, @PathVariable int id) {
 		return new ResponseEntity<BookDto>(bookService.updateBook(bookDto, id), HttpStatus.OK);
 	}
+	
 }
