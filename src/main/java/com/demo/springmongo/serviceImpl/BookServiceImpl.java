@@ -69,7 +69,6 @@ public class BookServiceImpl implements BookService {
 	public BookDto updateBook(BookDto bookDto, int id) {
 		Book book = bookRepository.findById(id).get();
 		book.setBookName(bookDto.getBookName());
-		book.setAuthorName(bookDto.getAuthorName());
 		bookRepository.save(book);
 		return mapToDto(book);
 	}

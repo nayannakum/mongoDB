@@ -1,6 +1,9 @@
 package com.demo.springmongo.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,17 +14,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.springmongo.dto.BookDto;
 import com.demo.springmongo.service.BookService;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
+@RequestMapping("/book")
 public class BookController {
 
 	@Autowired
 	private BookService bookService;
 
+	@ApiIgnore
+	@RequestMapping("/")
+	public void redirect(HttpServletResponse response) throws IOException {
+		response.sendRedirect("/swagger-ui.html");
+	}
+	
+	
+	
+	
 	@PostMapping("/addBook")
 	public ResponseEntity<BookDto> saveBoook(@RequestBody BookDto bookDto) {
 		return new ResponseEntity<>(bookService.addOneBook(bookDto), HttpStatus.CREATED);
