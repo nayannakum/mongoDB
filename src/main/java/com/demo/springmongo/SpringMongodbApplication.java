@@ -1,10 +1,22 @@
 package com.demo.springmongo;
 
+import java.util.Map;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.demo.springmongo.model.Author;
+import com.demo.springmongo.model.Book;
+import com.hazelcast.config.Config;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.jet.JetService;
+import com.hazelcast.map.IMap;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -16,12 +28,26 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableCaching
 public class SpringMongodbApplication {
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringMongodbApplication.class, args);
+		
 	}
-
+	
+	@Bean
+    public HazelcastInstance hazelcastInstance() {
+        Config config = new Config();
+        return Hazelcast.newHazelcastInstance(config);
+    }
+	
+	@Bean
+    public Config hazelcastConfig() {
+        return new Config().setInstanceName("hazelcast-instance");
+    }
+	
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
@@ -40,4 +66,8 @@ public class SpringMongodbApplication {
 		final ApiInfoBuilder builder = new ApiInfoBuilder();
 		return builder.build();
 	}
+	
+	
+	
+	
 }

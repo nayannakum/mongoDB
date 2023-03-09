@@ -18,16 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.springmongo.dto.BookDto;
+import com.demo.springmongo.model.BookCache;
 import com.demo.springmongo.service.BookService;
 
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/books")
 public class BookController {
 
 	@Autowired
 	private BookService bookService;
+	
+	
 
 	@ApiIgnore
 	@RequestMapping("/")
