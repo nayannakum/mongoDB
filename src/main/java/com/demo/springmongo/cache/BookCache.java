@@ -1,4 +1,4 @@
-package com.demo.springmongo.model;
+package com.demo.springmongo.cache;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.demo.springmongo.model.Book;
 import com.demo.springmongo.repository.BookRepository;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
@@ -23,10 +24,8 @@ public class BookCache {
     @PostConstruct
     public void init() {
         IMap<Integer, Book> bookMap = hazelcastInstance.getMap("books");
-        List<Book> books = bookRepository.findAll();
-        for (Book book : books) {
-            bookMap.put(book.getId(), book);
-        }
+       bookRepository.findAll().forEach(book -> bookMap.put(book.getId(), book));
+   
     }
     
     public Book getBookById(int id) {

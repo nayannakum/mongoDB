@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.springmongo.cache.BookCache;
 import com.demo.springmongo.dto.BookDto;
-import com.demo.springmongo.model.BookCache;
 import com.demo.springmongo.service.BookService;
 
 import springfox.documentation.annotations.ApiIgnore;
