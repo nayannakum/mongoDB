@@ -41,6 +41,7 @@ public class BookServiceImpl implements BookService {
 	// Adds a new book to the system
 	@Override
 	public BookDto addOneBook(BookDto bookDto) {
+		
 		bookCache.saveBook(mapper.map(bookDto, Book.class)); // Save the book to cache
 		Book book = mapToEntity(bookDto);
 		bookRepository.save(book); // Save the book to the database
@@ -58,7 +59,6 @@ public class BookServiceImpl implements BookService {
 	public BookDto findBookById(int id) {
 		Book book = bookCache.getBookById(id); // Try to find the book in cache first
 		if (book != null) {
-			System.out.println("coming from cache");
 			return mapper.map(book, BookDto.class);
 		} else {
 			Optional<Book> optionalBook = bookRepository.findById(id); // Otherwise, find the book in the database
@@ -66,7 +66,6 @@ public class BookServiceImpl implements BookService {
 				book = optionalBook.get();
 				bookCache.saveBook(book); // Save the book to cache for future use
 			}
-			System.out.println("coming from db");
 			return mapper.map(book, BookDto.class);
 		}
 	}
@@ -78,7 +77,7 @@ public class BookServiceImpl implements BookService {
 		if (bookFromCache != null) {
 			bookCache.deleteBook(id); // Delete the book from cache
 		}
-		Book book = bookRepository.findById(id).get(); // Otherwise, find the book in the database
+		Book book = bookRepository.findById(id).get(); // after, find the book in the database
 		bookRepository.deleteById(id); // Delete the book from the database
 		return mapToDto(book);
 	}
